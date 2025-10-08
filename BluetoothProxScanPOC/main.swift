@@ -7,16 +7,18 @@
 
 import Foundation
 import CoreBluetooth
+import Cocoa
 
-let appleLE0: UInt8 = 0x4C // Apple company ids
+// Id for apple enheter i RSSI
+let appleLE0: UInt8 = 0x4C
 let appleLE1: UInt8 = 0x00
 
-let nameTest: String = "william"
 
 let runLoop = RunLoop.current
 
 class Central: NSObject, CBCentralManagerDelegate {
     private var manager: CBCentralManager!
+    private var startTime: Double = Date().timeIntervalSince1970
 
     override init() {
         super.init()
@@ -27,8 +29,7 @@ class Central: NSObject, CBCentralManagerDelegate {
         switch central.state {
         case .poweredOn:
             print("Bluetooth ON")
-            manager.scanForPeripherals(withServices: nil,
-                                       options: [CBCentralManagerScanOptionAllowDuplicatesKey: true])
+            manager.scanForPeripherals(withServices: nil, options: [CBCentralManagerScanOptionAllowDuplicatesKey: true])
         case .poweredOff:    print("Bluetooth OFF")
         case .unauthorized:  print("unauthorized")
         case .unsupported:   print("unsupported")
@@ -46,7 +47,8 @@ class Central: NSObject, CBCentralManagerDelegate {
         let rssi = RSSI.intValue
         guard rssi != 127 else { return }
 
-        if let manufacturerKey = advertisementData[CBAdvertisementDataManufacturerDataKey] as? Data, manufacturerKey.count >= 2, manufacturerKey[0] == appleLE0, manufacturerKey[1] == appleLE1 {
+        if let manufacturerKey = advertisementData[CBAdvertisementDataManufacturerDataKey] as? Data,
+            manufacturerKey.count >= 2, manufacturerKey[0] == appleLE0, manufacturerKey[1] == appleLE1 {
             
             
             let name = (advertisementData[CBAdvertisementDataLocalNameKey] as? String)
@@ -59,8 +61,13 @@ class Central: NSObject, CBCentralManagerDelegate {
        
             let distance = calcDistanceWithRSSI(RSSI: RSSI)
             
-            if name.lowercased().contains("william sin iphone") {
+            if name.lowercased().contains("william sin iphone") { //|| name.lowercased().contains("airpods"){
                 print("[\(currentTime)][APPLE] RSSI=\(rssi) dBm distance \(distance) m name=\(name)")
+                print("     id=\(peripheral.identifier.uuidString)")
+                
+                if distance > 7.0 && Date().timeIntervalSince1970 - startTime > 5{
+                    startScreenSaver()
+                }
             }
         }
     }
@@ -74,9 +81,26 @@ class Central: NSObject, CBCentralManagerDelegate {
         
         return Double(round(1000*distance) / 1000)
     }
-    
 }
+
+func startScreenSaver() {
+    let saverPath = "/System/Library/CoreServices/ScreenSaverEngine.app"
+    let url = URL(fileURLWithPath: saverPath)
+    let config = NSWorkspace.OpenConfiguration()
+
+    DispatchQueue.main.async {
+        NSWorkspace.shared.openApplication(at: url, configuration: config) { _, error in
+            if let error = error {
+                print("Error \(error)")
+            }
+      
+            exit(0)
+        }
+    }
+}
+
 
 print("Bluetooth scanner dings")
 let central = Central()
-while runLoop.run(mode: .default, before: .distantFuture) { }
+RunLoop.main.run()
+
