@@ -9,12 +9,6 @@ import Foundation
 import CoreBluetooth
 import Cocoa
 
-// Id for apple enheter BT advertisement
-let appleLE0: UInt8 = 0x4C
-let appleLE1: UInt8 = 0x00
-
-let minRSSI: Double = -60
-
 import Foundation
 
 
@@ -76,12 +70,19 @@ struct RSSIWindow {
 }
 
 
-class Central: NSObject, CBCentralManagerDelegate {
+class BluetoothScanner: NSObject, CBCentralManagerDelegate {
     private var manager: CBCentralManager!
     private var startTime: Double = Date().timeIntervalSince1970
     private var stopAdTrigger: Bool = false
     private var lockTime: Double = Date().timeIntervalSince1970
     private let windowMaxCount: Int = 10
+    
+    // Id for apple enheter BT advertisement
+    let appleLE0: UInt8 = 0x4C
+    let appleLE1: UInt8 = 0x00
+
+    private var threshold: Double = -65
+
     
     
     private var filter = KalmanFilterRSSI(initialRSSI: -70)
@@ -131,8 +132,6 @@ class Central: NSObject, CBCentralManagerDelegate {
             let name = (advertisementData[CBAdvertisementDataLocalNameKey] as? String)
             ?? peripheral.name ?? "Unknown"
             
-            allRSSI.append(RSSI.doubleValue)
-            
             
             if name.lowercased().contains("william sin iphone"){
                 //print("[][APPLE] RSSI=\(rssi) dBm m name=\(name)")
@@ -153,11 +152,11 @@ class Central: NSObject, CBCentralManagerDelegate {
                     
                 let now = Date().timeIntervalSince1970
 
-                if now - lockTime > 60, smoothed < minRSSI {
+                if now - lockTime > 60, smoothed < threshold {
                     stopAdTrigger = false
                 }
 
-                if smoothed < minRSSI, now - startTime > 5, !stopAdTrigger {
+                if smoothed < threshold, now - startTime > 5, !stopAdTrigger {
                     print("LOCKING at \(Date()) rssi=\(smoothed)")
                     stopAdTrigger = true
                     lockTime = now
@@ -168,14 +167,18 @@ class Central: NSObject, CBCentralManagerDelegate {
         }
     }
     
-    func calcDistanceWithRSSI(RSSI: NSNumber) -> Double {
-        let TxPower: Double = -50.0
-        let pathLoss: Double = 2.0
-        let rssiValue: Double = RSSI.doubleValue
-        
-        let distance = pow(10,(TxPower - rssiValue)/(10*pathLoss))
-        
-        return Double(round(1000*distance) / 1000)
+    func startScanningIfReady() {
+            if manager.state == .poweredOn {
+                manager.scanForPeripherals(withServices: nil, options: [CBCentralManagerScanOptionAllowDuplicatesKey: true])
+            }
+        }
+
+    func stopScanning() {
+        manager.stopScan()
+    }
+    
+    func updateThreshold(newThreshold: Double) {
+        self.threshold = newThreshold
     }
 }
 
@@ -195,7 +198,7 @@ func startScreenSaver() {
 
 
 print("Bluetooth scanner dings")
-let central = Central()
+let central = BluetoothScanner()
 
 RunLoop.main.run()
 
