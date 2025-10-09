@@ -15,6 +15,43 @@ let appleLE1: UInt8 = 0x00
 
 let minRSSI: Double = -60
 
+import Foundation
+
+
+struct KalmanFilterRSSI {
+    private(set) var x: Double   // estimated RSSI
+    private(set) var P: Double   // uncertainty
+    private let Q: Double        // how much rssi should change
+    private let R: Double        // noise
+
+    init(initialRSSI: Double,
+         processNoise: Double = 0.5,
+         measurementNoise: Double = 4.0) {
+        self.x = initialRSSI
+        self.P = 10.0
+        self.Q = processNoise
+        self.R = measurementNoise
+    }
+
+    //math from chatGPT
+    mutating func update(measuredRSSI z: Double) -> Double {
+        // 1. Predict
+        P = P + Q
+
+        // 2. Compute Kalman gain
+        let K = P / (P + R)
+
+        // 3. Update estimate
+        x = x + K * (z - x)
+
+        // 4. Update uncertainty
+        P = (1 - K) * P
+
+        return x
+    }
+}
+
+
 
 struct RSSIWindow {
     private var window: [Double] = []
@@ -46,6 +83,8 @@ class Central: NSObject, CBCentralManagerDelegate {
     private var lockTime: Double = Date().timeIntervalSince1970
     private let windowMaxCount: Int = 10
     
+    
+    private var filter = KalmanFilterRSSI(initialRSSI: -70)
     private var window: RSSIWindow
  
     var allRSSI: [Double] = []
@@ -96,30 +135,34 @@ class Central: NSObject, CBCentralManagerDelegate {
             
             
             if name.lowercased().contains("william sin iphone"){
-                print("[][APPLE] RSSI=\(rssi) dBm m name=\(name)")
-                print("     id=\(peripheral.identifier.uuidString)")
+                //print("[][APPLE] RSSI=\(rssi) dBm m name=\(name)")
+                //print("     id=\(peripheral.identifier.uuidString)")
                 
                 
                 allRSSI.append(RSSI.doubleValue)
                 window.add(RSSI.doubleValue)
                 
+                let smoothed = filter.update(measuredRSSI: RSSI.doubleValue)
+                
+                print ("smoothed=\(smoothed) VS normal=\(RSSI.doubleValue)")
+                
                 guard !(window.count < self.windowMaxCount )else { return }
 
-                if let avg = window.average() {
-                    print("     average=\(avg)")
+               
+                print("     average=\(window.average())")
                     
-                    let now = Date().timeIntervalSince1970
+                let now = Date().timeIntervalSince1970
 
-                    if now - lockTime > 60, avg < minRSSI {
-                        stopAdTrigger = false
-                    }
+                if now - lockTime > 60, smoothed < minRSSI {
+                    stopAdTrigger = false
+                }
 
-                    if avg < minRSSI, now - startTime > 5, !stopAdTrigger {
-                        print("LOCKING at \(Date()) avg=\(avg)")
-                        stopAdTrigger = true
-                        lockTime = now
-                        startScreenSaver()
-                    }
+                if smoothed < minRSSI, now - startTime > 5, !stopAdTrigger {
+                    print("LOCKING at \(Date()) rssi=\(smoothed)")
+                    stopAdTrigger = true
+                    lockTime = now
+                    startScreenSaver()
+                    
                 }
             }
         }
