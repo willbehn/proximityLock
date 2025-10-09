@@ -10,8 +10,13 @@ import Combine
 @MainActor
 final class ScannerService: ObservableObject {
     @Published var isOn = false
-
+    @Published var threshold: Double
+    
     private var scanner: BluetoothScanner = BluetoothScanner()
+     
+    init() {
+        self.threshold = scanner.threshold
+    }
     
     func start() {
         guard isOn else { return }
@@ -28,7 +33,10 @@ final class ScannerService: ObservableObject {
         scanner.stopScanning()
     }
     
-    func updateThreshold(value: Double) {
-        scanner.updateThreshold(newThreshold: value)
+    func updateThreshold() {
+        print("ENDRER THRESHOLD")
+        scanner.updateThreshold(newThreshold: self.threshold)
+        
+        self.threshold = scanner.threshold
     }
 }

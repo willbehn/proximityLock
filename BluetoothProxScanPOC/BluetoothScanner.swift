@@ -81,7 +81,7 @@ class BluetoothScanner: NSObject, CBCentralManagerDelegate {
     let appleLE0: UInt8 = 0x4C
     let appleLE1: UInt8 = 0x00
 
-    private var threshold: Double = -65
+    private(set) var threshold: Double = -65
 
     
     
