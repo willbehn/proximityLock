@@ -18,19 +18,49 @@ struct BluetoothProxScanApp: App {
         MenuBarExtra("BT Prox",
                      systemImage: "lock") {
             VStack(alignment: .leading, spacing: 12) {
-                Text("Proximty lock")
                 
-                Toggle(isOn: $scanner.isOn) {
-                    Text(scanner.isOn ? "Scanning: ON" : "Scanning: OFF")
-                }
-                .toggleStyle(.switch)
-                .onChange(of: scanner.isOn) { oldValue, newValue in
+                HStack(spacing: 8) {
+                    Image(systemName: "lock.circle.fill")
+                        .imageScale(.large)
+                    Text("Proximity Lock")
+                        .font(.headline)
                     
-                    if newValue { scanner.start() } else { scanner.stop() }
+                    Spacer()
+                    
+                    Label(scanner.isOn ? "On" : "Off",
+                          systemImage: "circle.fill")
+                    .labelStyle(.titleAndIcon)
+                    .foregroundStyle(scanner.isOn ? .green : .secondary)
+                    .help("Scanner status")
+                    
+                    Toggle(isOn: $scanner.isOn) {
+                       
+                    }
+                    .toggleStyle(.switch)
+                    .onChange(of: scanner.isOn) { oldValue, newValue in
+                        
+                        if newValue { scanner.start() } else { scanner.stop() }
+                    }
                 }
                 
+                HStack {
+                    Text("Lock Threshold")
+                        .font(.subheadline.weight(.semibold))
+                        .foregroundStyle(.primary)
+                    
+                    Spacer()
+                    
+                    Text("\(scanner.threshold, specifier: "%.1f") dB")
+                        .font(.system(.subheadline, design: .rounded))
+                    
+                        .foregroundStyle(.secondary)
+                }
                 
-                Text("Threshold for locking (higher number is less sensitive)")
+                Text("(Higher value is less sensitive)")
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+                    
+                
                 Slider(
                     value: $scanner.threshold,
                     in: -85 ... -55,
@@ -40,18 +70,28 @@ struct BluetoothProxScanApp: App {
                         if !editing{
                             scanner.updateThreshold()
                         }
-                        
                     }
                 )
-                Text("\(scanner.threshold, specifier: "%.1f") dB")
                 
-                
+                HStack {
+                    Text("-85 dB")
+                        .font(.system(.subheadline, design: .rounded))
+                        .foregroundStyle(.secondary)
+                    
+                    Spacer()
+                    
+                    Text("-55 dB")
+                        .font(.system(.subheadline, design: .rounded))
+                        .foregroundStyle(.secondary)
+                }
                 
                 Divider()
+                
                 Button("Quit") { NSApplication.shared.terminate(nil) }
+                    .buttonStyle(.bordered)
             }
             .padding(12)
-            .frame(width: 280)
+            .frame(width: 300)
         }
                      .menuBarExtraStyle(.window)
     }
