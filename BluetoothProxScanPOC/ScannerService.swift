@@ -11,24 +11,24 @@ import Combine
 final class ScannerService: ObservableObject {
     @Published var isOn = false
 
-    private var scanner: BluetoothScanner?
-
+    private var scanner: BluetoothScanner = BluetoothScanner()
+    
     func start() {
-        guard !isOn else { return }
+        guard isOn else { return }
+        
         isOn = true
-        scanner = BluetoothScanner()
-        //scanner.?.startScanningIfReady() //It auto starts now
+
+        scanner.startScanningIfReady() 
         
     }
 
     func stop() {
-        guard isOn else { return }
+        guard !isOn else { return }
         isOn = false
-        scanner?.stopScanning()
-        scanner = nil
+        scanner.stopScanning()
     }
     
     func updateThreshold(value: Double) {
-        scanner?.updateThreshold(newThreshold: value)
+        scanner.updateThreshold(newThreshold: value)
     }
 }

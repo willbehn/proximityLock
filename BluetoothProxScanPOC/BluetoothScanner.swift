@@ -105,9 +105,7 @@ class BluetoothScanner: NSObject, CBCentralManagerDelegate {
 
     func centralManagerDidUpdateState(_ central: CBCentralManager) {
         switch central.state {
-        case .poweredOn:
-            print("Bluetooth ON")
-            manager.scanForPeripherals(withServices: nil, options: [CBCentralManagerScanOptionAllowDuplicatesKey: true])
+        case .poweredOn:     print("Bluetooth ON")
         case .poweredOff:    print("Bluetooth OFF")
         case .unauthorized:  print("unauthorized")
         case .unsupported:   print("unsupported")
@@ -147,9 +145,6 @@ class BluetoothScanner: NSObject, CBCentralManagerDelegate {
                 
                 guard !(window.count < self.windowMaxCount )else { return }
 
-               
-                print("     average=\(window.average())")
-                    
                 let now = Date().timeIntervalSince1970
 
                 if now - lockTime > 60, smoothed < threshold {
@@ -168,6 +163,7 @@ class BluetoothScanner: NSObject, CBCentralManagerDelegate {
     }
     
     func startScanningIfReady() {
+        print("STARITNG SCANNING")
             if manager.state == .poweredOn {
                 manager.scanForPeripherals(withServices: nil, options: [CBCentralManagerScanOptionAllowDuplicatesKey: true])
             }
@@ -195,10 +191,4 @@ func startScreenSaver() {
         }
     }
 }
-
-
-print("Bluetooth scanner dings")
-let central = BluetoothScanner()
-
-RunLoop.main.run()
 
