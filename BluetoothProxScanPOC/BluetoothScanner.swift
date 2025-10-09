@@ -46,7 +46,6 @@ struct KalmanFilterRSSI {
 }
 
 
-
 struct RSSIWindow {
     private var window: [Double] = []
     var maxCount: Int
@@ -74,7 +73,12 @@ class BluetoothScanner: NSObject, CBCentralManagerDelegate {
     private var manager: CBCentralManager!
     private var startTime: Double = Date().timeIntervalSince1970
     private var stopAdTrigger: Bool = false
-    private var lockTime: Double = Date().timeIntervalSince1970
+    
+    private var unlockTime: Double? = nil
+    
+    private let lockCenter = DistributedNotificationCenter.default()
+    private var isLocked: Bool = false
+    
     private let windowMaxCount: Int = 10
     
     // Id for apple enheter BT advertisement
@@ -87,8 +91,6 @@ class BluetoothScanner: NSObject, CBCentralManagerDelegate {
     
     private var filter = KalmanFilterRSSI(initialRSSI: -70)
     private var window: RSSIWindow
- 
-    var allRSSI: [Double] = []
     
     let formatter: DateFormatter = {
         let f = DateFormatter()
@@ -101,6 +103,27 @@ class BluetoothScanner: NSObject, CBCentralManagerDelegate {
         super.init()
         manager = CBCentralManager(delegate: self, queue: DispatchQueue(label: "bt.queue"))
         
+        
+        lockCenter.addObserver(
+            forName: NSNotification.Name("com.apple.screenIsLocked"),
+            object: nil,
+            queue: .main
+        ) { [weak self] _ in
+            print("screen is locked")
+            self?.isLocked = true
+            self?.stopScanning()
+        }
+        
+        lockCenter.addObserver(
+            forName: NSNotification.Name("com.apple.screenIsUnlocked"),
+            object: nil,
+            queue: .main
+        ) { [weak self] _ in
+            print("screen is unlocked")
+            self?.isLocked = false
+            self?.startScanningIfReady()
+            self?.unlockTime = Date().timeIntervalSince1970
+        }
     }
 
     func centralManagerDidUpdateState(_ central: CBCentralManager) {
@@ -121,8 +144,14 @@ class BluetoothScanner: NSObject, CBCentralManagerDelegate {
                         advertisementData: [String : Any],
                         rssi RSSI: NSNumber) {
    
-        let rssi = RSSI.intValue
-        guard rssi != 127 else { return }
+    
+        guard RSSI.intValue != 127 else { return }
+        
+        guard !isLocked else { return }
+        
+        let now = Date().timeIntervalSince1970
+
+        if let lt = self.unlockTime, now - lt <= 60 { return }
         
         if let manufacturerKey = advertisementData[CBAdvertisementDataManufacturerDataKey] as? Data,
             manufacturerKey.count >= 2, manufacturerKey[0] == appleLE0, manufacturerKey[1] == appleLE1 {
@@ -133,10 +162,8 @@ class BluetoothScanner: NSObject, CBCentralManagerDelegate {
             
             if name.lowercased().contains("william sin iphone"){
                 //print("[][APPLE] RSSI=\(rssi) dBm m name=\(name)")
-                //print("     id=\(peripheral.identifier.uuidString)")
+                //print("id=\(peripheral.identifier.uuidString)")
                 
-                
-                allRSSI.append(RSSI.doubleValue)
                 window.add(RSSI.doubleValue)
                 
                 let smoothed = filter.update(measuredRSSI: RSSI.doubleValue)
@@ -147,14 +174,9 @@ class BluetoothScanner: NSObject, CBCentralManagerDelegate {
 
                 let now = Date().timeIntervalSince1970
 
-                if now - lockTime > 60, smoothed < threshold {
-                    stopAdTrigger = false
-                }
-
-                if smoothed < threshold, now - startTime > 5, !stopAdTrigger {
+                if smoothed < threshold, now - startTime > 5 {
                     print("LOCKING at \(Date()) rssi=\(smoothed)")
-                    stopAdTrigger = true
-                    lockTime = now
+                    
                     startScreenSaver()
                     
                 }
@@ -163,7 +185,6 @@ class BluetoothScanner: NSObject, CBCentralManagerDelegate {
     }
     
     func startScanningIfReady() {
-        print("STARITNG SCANNING")
             if manager.state == .poweredOn {
                 manager.scanForPeripherals(withServices: nil, options: [CBCentralManagerScanOptionAllowDuplicatesKey: true])
             }
