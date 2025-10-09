@@ -18,23 +18,22 @@ let minRSSI: Double = -60
 
 struct RSSIWindow {
     private var window: [Double] = []
-    private var maxCount: Int
-    
+    var maxCount: Int
+    var count: Int { window.count }
+
     init(maxCount: Int) {
         self.maxCount = maxCount
     }
     
     mutating func add(_ newRSSI: Double) {
-        if window.count >= maxCount{
+        if window.count >= maxCount {
             window.removeFirst()
-            
         }
         window.append(newRSSI)
     }
     
-    func average() -> Double {
-        guard window.count < maxCount else { return Double.greatestFiniteMagnitude }
-        
+    func average() -> Double? {
+        guard !window.isEmpty else { return nil }
         return window.reduce(0, +) / Double(window.count)
     }
 }
@@ -45,8 +44,9 @@ class Central: NSObject, CBCentralManagerDelegate {
     private var startTime: Double = Date().timeIntervalSince1970
     private var stopAdTrigger: Bool = false
     private var lockTime: Double = Date().timeIntervalSince1970
+    private let windowMaxCount: Int = 10
     
-    private var window: RSSIWindow = RSSIWindow(maxCount: 10)
+    private var window: RSSIWindow
  
     var allRSSI: [Double] = []
     
@@ -57,8 +57,10 @@ class Central: NSObject, CBCentralManagerDelegate {
     }()
 
     override init() {
+        window = RSSIWindow(maxCount: windowMaxCount)
         super.init()
         manager = CBCentralManager(delegate: self, queue: DispatchQueue(label: "bt.queue"))
+        
     }
 
     func centralManagerDidUpdateState(_ central: CBCentralManager) {
@@ -92,29 +94,32 @@ class Central: NSObject, CBCentralManagerDelegate {
             
             allRSSI.append(RSSI.doubleValue)
             
-            let currentTime = formatter.string(from: Date())
-            let distance = calcDistanceWithRSSI(RSSI: RSSI)
             
             if name.lowercased().contains("william sin iphone"){
-                print("[\(currentTime)][APPLE] RSSI=\(rssi) dBm m name=\(name)")
+                print("[][APPLE] RSSI=\(rssi) dBm m name=\(name)")
                 print("     id=\(peripheral.identifier.uuidString)")
-                print("     approximate distance=\(distance)")
                 
-                let currentTime = Date().timeIntervalSince1970
                 
+                allRSSI.append(RSSI.doubleValue)
                 window.add(RSSI.doubleValue)
                 
-                
-                if currentTime - lockTime > 30 && window.average() < minRSSI{
-                    stopAdTrigger = false
-                }
-                
-                if window.average() < minRSSI && currentTime - startTime > 5 && !stopAdTrigger{
-                    print("LOCKING at \(Date()) avg=\(window.average())")
+                guard !(window.count < self.windowMaxCount )else { return }
+
+                if let avg = window.average() {
+                    print("     average=\(avg)")
                     
-                    stopAdTrigger = true
-                    lockTime = Date().timeIntervalSince1970
-                    startScreenSaver()
+                    let now = Date().timeIntervalSince1970
+
+                    if now - lockTime > 60, avg < minRSSI {
+                        stopAdTrigger = false
+                    }
+
+                    if avg < minRSSI, now - startTime > 5, !stopAdTrigger {
+                        print("LOCKING at \(Date()) avg=\(avg)")
+                        stopAdTrigger = true
+                        lockTime = now
+                        startScreenSaver()
+                    }
                 }
             }
         }
