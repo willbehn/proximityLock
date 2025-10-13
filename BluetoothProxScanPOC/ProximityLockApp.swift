@@ -43,6 +43,8 @@ struct BluetoothProxScanApp: App {
                     }
                 }
                 
+                RSSIChart(scanner: scanner)
+
                 HStack {
                     Text("Lock Threshold")
                         .font(.subheadline.weight(.semibold))
@@ -63,7 +65,7 @@ struct BluetoothProxScanApp: App {
                 
                 Slider(
                     value: $scanner.threshold,
-                    in: -85 ... -55,
+                    in: -85 ... -35,
                     onEditingChanged: { editing in
                         isEditing = editing
                         
@@ -96,5 +98,3 @@ struct BluetoothProxScanApp: App {
                      .menuBarExtraStyle(.window)
     }
 }
-
-

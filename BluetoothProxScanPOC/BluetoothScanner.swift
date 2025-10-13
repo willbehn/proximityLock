@@ -10,6 +10,7 @@ import CoreBluetooth
 import Cocoa
 
 import Foundation
+import Combine
 
 
 struct KalmanFilterRSSI {
@@ -45,30 +46,6 @@ struct KalmanFilterRSSI {
     }
 }
 
-
-struct RSSIWindow {
-    private var window: [Double] = []
-    var maxCount: Int
-    var count: Int { window.count }
-
-    init(maxCount: Int) {
-        self.maxCount = maxCount
-    }
-    
-    mutating func add(_ newRSSI: Double) {
-        if window.count >= maxCount {
-            window.removeFirst()
-        }
-        window.append(newRSSI)
-    }
-    
-    func average() -> Double? {
-        guard !window.isEmpty else { return nil }
-        return window.reduce(0, +) / Double(window.count)
-    }
-}
-
-
 class BluetoothScanner: NSObject, CBCentralManagerDelegate {
     private var manager: CBCentralManager!
     private var startTime: Double? = nil
@@ -79,18 +56,16 @@ class BluetoothScanner: NSObject, CBCentralManagerDelegate {
     private let lockCenter = DistributedNotificationCenter.default()
     private var isLocked: Bool = false
     
-    private let windowMaxCount: Int = 10
     
     // Id for apple enheter BT advertisement
     let appleLE0: UInt8 = 0x4C
     let appleLE1: UInt8 = 0x00
 
     private(set) var threshold: Double = -65
+    
+    let rssiPublisher = PassthroughSubject<Double, Never>()
 
-    
-    
     private var filter = KalmanFilterRSSI(initialRSSI: -70)
-    private var window: RSSIWindow
     
     let formatter: DateFormatter = {
         let f = DateFormatter()
@@ -99,7 +74,6 @@ class BluetoothScanner: NSObject, CBCentralManagerDelegate {
     }()
 
     override init() {
-        window = RSSIWindow(maxCount: windowMaxCount)
         super.init()
         manager = CBCentralManager(delegate: self, queue: DispatchQueue(label: "bt.queue"))
 
@@ -167,9 +141,9 @@ class BluetoothScanner: NSObject, CBCentralManagerDelegate {
                 //print("[][APPLE] RSSI=\(rssi) dBm m name=\(name)")
                 //print("id=\(peripheral.identifier.uuidString)")
                 
-                window.add(RSSI.doubleValue)
-                
                 let smoothed = filter.update(measuredRSSI: RSSI.doubleValue)
+                
+                rssiPublisher.send(smoothed)
                 
                 print ("smoothed=\(smoothed) VS normal=\(RSSI.doubleValue)")
                 
