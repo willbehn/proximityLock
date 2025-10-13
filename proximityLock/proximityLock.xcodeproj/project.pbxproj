@@ -7,72 +7,62 @@
 	objects = {
 
 /* Begin PBXContainerItemProxy section */
-		E5FEC64C2E9D817400448FFE /* PBXContainerItemProxy */ = {
+		E5FEC67D2E9D825900448FFE /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = E5DB96862E969F8100577D73 /* Project object */;
+			containerPortal = E5FEC6672E9D825800448FFE /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = E5FEC63E2E9D817200448FFE;
+			remoteGlobalIDString = E5FEC66E2E9D825800448FFE;
 			remoteInfo = proximityLock;
 		};
-		E5FEC6562E9D817400448FFE /* PBXContainerItemProxy */ = {
+		E5FEC6872E9D825900448FFE /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = E5DB96862E969F8100577D73 /* Project object */;
+			containerPortal = E5FEC6672E9D825800448FFE /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = E5FEC63E2E9D817200448FFE;
+			remoteGlobalIDString = E5FEC66E2E9D825800448FFE;
 			remoteInfo = proximityLock;
 		};
 /* End PBXContainerItemProxy section */
 
-/* Begin PBXCopyFilesBuildPhase section */
-		E5DB968C2E969F8100577D73 /* CopyFiles */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = /usr/share/man/man1/;
-			dstSubfolderSpec = 0;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 1;
-		};
-/* End PBXCopyFilesBuildPhase section */
-
 /* Begin PBXFileReference section */
-		E5DB968E2E969F8100577D73 /* BluetoothProxScanPOC */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = BluetoothProxScanPOC; sourceTree = BUILT_PRODUCTS_DIR; };
-		E5FEC63F2E9D817200448FFE /* proximityLock.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = proximityLock.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		E5FEC64B2E9D817400448FFE /* proximityLockTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = proximityLockTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		E5FEC6552E9D817400448FFE /* proximityLockUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = proximityLockUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		E5FEC66F2E9D825800448FFE /* proximityLock.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = proximityLock.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		E5FEC67C2E9D825900448FFE /* proximityLockTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = proximityLockTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		E5FEC6862E9D825900448FFE /* proximityLockUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = proximityLockUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		E5DB96902E969F8100577D73 /* BluetoothProxScanPOC */ = {
+		E5FEC6712E9D825800448FFE /* proximityLock */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			path = BluetoothProxScanPOC;
+			path = proximityLock;
+			sourceTree = "<group>";
+		};
+		E5FEC67F2E9D825900448FFE /* proximityLockTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = proximityLockTests;
+			sourceTree = "<group>";
+		};
+		E5FEC6892E9D825900448FFE /* proximityLockUITests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = proximityLockUITests;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		E5DB968B2E969F8100577D73 /* Frameworks */ = {
+		E5FEC66C2E9D825800448FFE /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		E5FEC63C2E9D817200448FFE /* Frameworks */ = {
+		E5FEC6792E9D825900448FFE /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		E5FEC6482E9D817400448FFE /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		E5FEC6522E9D817400448FFE /* Frameworks */ = {
+		E5FEC6832E9D825900448FFE /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -82,21 +72,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		E5DB96852E969F8000577D73 = {
+		E5FEC6662E9D825800448FFE = {
 			isa = PBXGroup;
 			children = (
-				E5DB96902E969F8100577D73 /* BluetoothProxScanPOC */,
-				E5DB968F2E969F8100577D73 /* Products */,
+				E5FEC6712E9D825800448FFE /* proximityLock */,
+				E5FEC67F2E9D825900448FFE /* proximityLockTests */,
+				E5FEC6892E9D825900448FFE /* proximityLockUITests */,
+				E5FEC6702E9D825800448FFE /* Products */,
 			);
 			sourceTree = "<group>";
 		};
-		E5DB968F2E969F8100577D73 /* Products */ = {
+		E5FEC6702E9D825800448FFE /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				E5DB968E2E969F8100577D73 /* BluetoothProxScanPOC */,
-				E5FEC63F2E9D817200448FFE /* proximityLock.app */,
-				E5FEC64B2E9D817400448FFE /* proximityLockTests.xctest */,
-				E5FEC6552E9D817400448FFE /* proximityLockUITests.xctest */,
+				E5FEC66F2E9D825800448FFE /* proximityLock.app */,
+				E5FEC67C2E9D825900448FFE /* proximityLockTests.xctest */,
+				E5FEC6862E9D825900448FFE /* proximityLockUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -104,151 +95,134 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		E5DB968D2E969F8100577D73 /* BluetoothProxScanPOC */ = {
+		E5FEC66E2E9D825800448FFE /* proximityLock */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = E5DB96952E969F8100577D73 /* Build configuration list for PBXNativeTarget "BluetoothProxScanPOC" */;
+			buildConfigurationList = E5FEC6902E9D825900448FFE /* Build configuration list for PBXNativeTarget "proximityLock" */;
 			buildPhases = (
-				E5DB968A2E969F8100577D73 /* Sources */,
-				E5DB968B2E969F8100577D73 /* Frameworks */,
-				E5DB968C2E969F8100577D73 /* CopyFiles */,
+				E5FEC66B2E9D825800448FFE /* Sources */,
+				E5FEC66C2E9D825800448FFE /* Frameworks */,
+				E5FEC66D2E9D825800448FFE /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				E5DB96902E969F8100577D73 /* BluetoothProxScanPOC */,
-			);
-			name = BluetoothProxScanPOC;
-			packageProductDependencies = (
-			);
-			productName = BluetoothProxScanPOC;
-			productReference = E5DB968E2E969F8100577D73 /* BluetoothProxScanPOC */;
-			productType = "com.apple.product-type.tool";
-		};
-		E5FEC63E2E9D817200448FFE /* proximityLock */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = E5FEC65D2E9D817400448FFE /* Build configuration list for PBXNativeTarget "proximityLock" */;
-			buildPhases = (
-				E5FEC63B2E9D817200448FFE /* Sources */,
-				E5FEC63C2E9D817200448FFE /* Frameworks */,
-				E5FEC63D2E9D817200448FFE /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
+				E5FEC6712E9D825800448FFE /* proximityLock */,
 			);
 			name = proximityLock;
 			packageProductDependencies = (
 			);
 			productName = proximityLock;
-			productReference = E5FEC63F2E9D817200448FFE /* proximityLock.app */;
+			productReference = E5FEC66F2E9D825800448FFE /* proximityLock.app */;
 			productType = "com.apple.product-type.application";
 		};
-		E5FEC64A2E9D817400448FFE /* proximityLockTests */ = {
+		E5FEC67B2E9D825900448FFE /* proximityLockTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = E5FEC6602E9D817400448FFE /* Build configuration list for PBXNativeTarget "proximityLockTests" */;
+			buildConfigurationList = E5FEC6932E9D825900448FFE /* Build configuration list for PBXNativeTarget "proximityLockTests" */;
 			buildPhases = (
-				E5FEC6472E9D817400448FFE /* Sources */,
-				E5FEC6482E9D817400448FFE /* Frameworks */,
-				E5FEC6492E9D817400448FFE /* Resources */,
+				E5FEC6782E9D825900448FFE /* Sources */,
+				E5FEC6792E9D825900448FFE /* Frameworks */,
+				E5FEC67A2E9D825900448FFE /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				E5FEC64D2E9D817400448FFE /* PBXTargetDependency */,
+				E5FEC67E2E9D825900448FFE /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				E5FEC67F2E9D825900448FFE /* proximityLockTests */,
 			);
 			name = proximityLockTests;
 			packageProductDependencies = (
 			);
 			productName = proximityLockTests;
-			productReference = E5FEC64B2E9D817400448FFE /* proximityLockTests.xctest */;
+			productReference = E5FEC67C2E9D825900448FFE /* proximityLockTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		E5FEC6542E9D817400448FFE /* proximityLockUITests */ = {
+		E5FEC6852E9D825900448FFE /* proximityLockUITests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = E5FEC6632E9D817400448FFE /* Build configuration list for PBXNativeTarget "proximityLockUITests" */;
+			buildConfigurationList = E5FEC6962E9D825900448FFE /* Build configuration list for PBXNativeTarget "proximityLockUITests" */;
 			buildPhases = (
-				E5FEC6512E9D817400448FFE /* Sources */,
-				E5FEC6522E9D817400448FFE /* Frameworks */,
-				E5FEC6532E9D817400448FFE /* Resources */,
+				E5FEC6822E9D825900448FFE /* Sources */,
+				E5FEC6832E9D825900448FFE /* Frameworks */,
+				E5FEC6842E9D825900448FFE /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				E5FEC6572E9D817400448FFE /* PBXTargetDependency */,
+				E5FEC6882E9D825900448FFE /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				E5FEC6892E9D825900448FFE /* proximityLockUITests */,
 			);
 			name = proximityLockUITests;
 			packageProductDependencies = (
 			);
 			productName = proximityLockUITests;
-			productReference = E5FEC6552E9D817400448FFE /* proximityLockUITests.xctest */;
+			productReference = E5FEC6862E9D825900448FFE /* proximityLockUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		E5DB96862E969F8100577D73 /* Project object */ = {
+		E5FEC6672E9D825800448FFE /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 2600;
 				LastUpgradeCheck = 2600;
 				TargetAttributes = {
-					E5DB968D2E969F8100577D73 = {
+					E5FEC66E2E9D825800448FFE = {
 						CreatedOnToolsVersion = 26.0.1;
 					};
-					E5FEC63E2E9D817200448FFE = {
+					E5FEC67B2E9D825900448FFE = {
 						CreatedOnToolsVersion = 26.0.1;
+						TestTargetID = E5FEC66E2E9D825800448FFE;
 					};
-					E5FEC64A2E9D817400448FFE = {
+					E5FEC6852E9D825900448FFE = {
 						CreatedOnToolsVersion = 26.0.1;
-						TestTargetID = E5FEC63E2E9D817200448FFE;
-					};
-					E5FEC6542E9D817400448FFE = {
-						CreatedOnToolsVersion = 26.0.1;
-						TestTargetID = E5FEC63E2E9D817200448FFE;
+						TestTargetID = E5FEC66E2E9D825800448FFE;
 					};
 				};
 			};
-			buildConfigurationList = E5DB96892E969F8100577D73 /* Build configuration list for PBXProject "BluetoothProxScanPOC" */;
+			buildConfigurationList = E5FEC66A2E9D825800448FFE /* Build configuration list for PBXProject "proximityLock" */;
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
 				Base,
 			);
-			mainGroup = E5DB96852E969F8000577D73;
+			mainGroup = E5FEC6662E9D825800448FFE;
 			minimizedProjectReferenceProxies = 1;
 			preferredProjectObjectVersion = 77;
-			productRefGroup = E5DB968F2E969F8100577D73 /* Products */;
+			productRefGroup = E5FEC6702E9D825800448FFE /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				E5DB968D2E969F8100577D73 /* BluetoothProxScanPOC */,
-				E5FEC63E2E9D817200448FFE /* proximityLock */,
-				E5FEC64A2E9D817400448FFE /* proximityLockTests */,
-				E5FEC6542E9D817400448FFE /* proximityLockUITests */,
+				E5FEC66E2E9D825800448FFE /* proximityLock */,
+				E5FEC67B2E9D825900448FFE /* proximityLockTests */,
+				E5FEC6852E9D825900448FFE /* proximityLockUITests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		E5FEC63D2E9D817200448FFE /* Resources */ = {
+		E5FEC66D2E9D825800448FFE /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		E5FEC6492E9D817400448FFE /* Resources */ = {
+		E5FEC67A2E9D825900448FFE /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		E5FEC6532E9D817400448FFE /* Resources */ = {
+		E5FEC6842E9D825900448FFE /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -258,28 +232,21 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		E5DB968A2E969F8100577D73 /* Sources */ = {
+		E5FEC66B2E9D825800448FFE /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		E5FEC63B2E9D817200448FFE /* Sources */ = {
+		E5FEC6782E9D825900448FFE /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		E5FEC6472E9D817400448FFE /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		E5FEC6512E9D817400448FFE /* Sources */ = {
+		E5FEC6822E9D825900448FFE /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -289,20 +256,20 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		E5FEC64D2E9D817400448FFE /* PBXTargetDependency */ = {
+		E5FEC67E2E9D825900448FFE /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = E5FEC63E2E9D817200448FFE /* proximityLock */;
-			targetProxy = E5FEC64C2E9D817400448FFE /* PBXContainerItemProxy */;
+			target = E5FEC66E2E9D825800448FFE /* proximityLock */;
+			targetProxy = E5FEC67D2E9D825900448FFE /* PBXContainerItemProxy */;
 		};
-		E5FEC6572E9D817400448FFE /* PBXTargetDependency */ = {
+		E5FEC6882E9D825900448FFE /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = E5FEC63E2E9D817200448FFE /* proximityLock */;
-			targetProxy = E5FEC6562E9D817400448FFE /* PBXContainerItemProxy */;
+			target = E5FEC66E2E9D825800448FFE /* proximityLock */;
+			targetProxy = E5FEC6872E9D825900448FFE /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		E5DB96932E969F8100577D73 /* Debug */ = {
+		E5FEC68E2E9D825900448FFE /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -337,6 +304,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = Q6WB8HYJM9;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
@@ -365,7 +333,7 @@
 			};
 			name = Debug;
 		};
-		E5DB96942E969F8100577D73 /* Release */ = {
+		E5FEC68F2E9D825900448FFE /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -400,6 +368,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = Q6WB8HYJM9;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
@@ -420,35 +389,7 @@
 			};
 			name = Release;
 		};
-		E5DB96962E969F8100577D73 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = Q6WB8HYJM9;
-				INFOPLIST_FILE = "BluetoothProxScanPOC/Info.plist\n";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_APPROACHABLE_CONCURRENCY = YES;
-				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
-				SWIFT_VERSION = 5.0;
-			};
-			name = Debug;
-		};
-		E5DB96972E969F8100577D73 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = Q6WB8HYJM9;
-				INFOPLIST_FILE = "BluetoothProxScanPOC/Info.plist\n";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_APPROACHABLE_CONCURRENCY = YES;
-				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
-				SWIFT_VERSION = 5.0;
-			};
-			name = Release;
-		};
-		E5FEC65E2E9D817400448FFE /* Debug */ = {
+		E5FEC6912E9D825900448FFE /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -459,9 +400,23 @@
 				DEVELOPMENT_TEAM = Q6WB8HYJM9;
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_INCOMING_NETWORK_CONNECTIONS = NO;
+				ENABLE_OUTGOING_NETWORK_CONNECTIONS = NO;
 				ENABLE_PREVIEWS = YES;
+				ENABLE_RESOURCE_ACCESS_AUDIO_INPUT = NO;
+				ENABLE_RESOURCE_ACCESS_BLUETOOTH = YES;
+				ENABLE_RESOURCE_ACCESS_CALENDARS = NO;
+				ENABLE_RESOURCE_ACCESS_CAMERA = NO;
+				ENABLE_RESOURCE_ACCESS_CONTACTS = NO;
+				ENABLE_RESOURCE_ACCESS_LOCATION = NO;
+				ENABLE_RESOURCE_ACCESS_PRINTING = NO;
+				ENABLE_RESOURCE_ACCESS_USB = NO;
 				ENABLE_USER_SELECTED_FILES = readonly;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "";
+				INFOPLIST_KEY_LSApplicationCategoryType = "";
+				INFOPLIST_KEY_LSUIElement = YES;
+				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "This app needs Bluetooth access to scan for nearby devices.";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -480,7 +435,7 @@
 			};
 			name = Debug;
 		};
-		E5FEC65F2E9D817400448FFE /* Release */ = {
+		E5FEC6922E9D825900448FFE /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -491,9 +446,23 @@
 				DEVELOPMENT_TEAM = Q6WB8HYJM9;
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_INCOMING_NETWORK_CONNECTIONS = NO;
+				ENABLE_OUTGOING_NETWORK_CONNECTIONS = NO;
 				ENABLE_PREVIEWS = YES;
+				ENABLE_RESOURCE_ACCESS_AUDIO_INPUT = NO;
+				ENABLE_RESOURCE_ACCESS_BLUETOOTH = YES;
+				ENABLE_RESOURCE_ACCESS_CALENDARS = NO;
+				ENABLE_RESOURCE_ACCESS_CAMERA = NO;
+				ENABLE_RESOURCE_ACCESS_CONTACTS = NO;
+				ENABLE_RESOURCE_ACCESS_LOCATION = NO;
+				ENABLE_RESOURCE_ACCESS_PRINTING = NO;
+				ENABLE_RESOURCE_ACCESS_USB = NO;
 				ENABLE_USER_SELECTED_FILES = readonly;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "";
+				INFOPLIST_KEY_LSApplicationCategoryType = "";
+				INFOPLIST_KEY_LSUIElement = YES;
+				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "This app needs Bluetooth access to scan for nearby devices.";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -512,7 +481,7 @@
 			};
 			name = Release;
 		};
-		E5FEC6612E9D817400448FFE /* Debug */ = {
+		E5FEC6942E9D825900448FFE /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -533,7 +502,7 @@
 			};
 			name = Debug;
 		};
-		E5FEC6622E9D817400448FFE /* Release */ = {
+		E5FEC6952E9D825900448FFE /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -554,7 +523,7 @@
 			};
 			name = Release;
 		};
-		E5FEC6642E9D817400448FFE /* Debug */ = {
+		E5FEC6972E9D825900448FFE /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
@@ -573,7 +542,7 @@
 			};
 			name = Debug;
 		};
-		E5FEC6652E9D817400448FFE /* Release */ = {
+		E5FEC6982E9D825900448FFE /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
@@ -595,52 +564,43 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		E5DB96892E969F8100577D73 /* Build configuration list for PBXProject "BluetoothProxScanPOC" */ = {
+		E5FEC66A2E9D825800448FFE /* Build configuration list for PBXProject "proximityLock" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				E5DB96932E969F8100577D73 /* Debug */,
-				E5DB96942E969F8100577D73 /* Release */,
+				E5FEC68E2E9D825900448FFE /* Debug */,
+				E5FEC68F2E9D825900448FFE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		E5DB96952E969F8100577D73 /* Build configuration list for PBXNativeTarget "BluetoothProxScanPOC" */ = {
+		E5FEC6902E9D825900448FFE /* Build configuration list for PBXNativeTarget "proximityLock" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				E5DB96962E969F8100577D73 /* Debug */,
-				E5DB96972E969F8100577D73 /* Release */,
+				E5FEC6912E9D825900448FFE /* Debug */,
+				E5FEC6922E9D825900448FFE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		E5FEC65D2E9D817400448FFE /* Build configuration list for PBXNativeTarget "proximityLock" */ = {
+		E5FEC6932E9D825900448FFE /* Build configuration list for PBXNativeTarget "proximityLockTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				E5FEC65E2E9D817400448FFE /* Debug */,
-				E5FEC65F2E9D817400448FFE /* Release */,
+				E5FEC6942E9D825900448FFE /* Debug */,
+				E5FEC6952E9D825900448FFE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		E5FEC6602E9D817400448FFE /* Build configuration list for PBXNativeTarget "proximityLockTests" */ = {
+		E5FEC6962E9D825900448FFE /* Build configuration list for PBXNativeTarget "proximityLockUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				E5FEC6612E9D817400448FFE /* Debug */,
-				E5FEC6622E9D817400448FFE /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		E5FEC6632E9D817400448FFE /* Build configuration list for PBXNativeTarget "proximityLockUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				E5FEC6642E9D817400448FFE /* Debug */,
-				E5FEC6652E9D817400448FFE /* Release */,
+				E5FEC6972E9D825900448FFE /* Debug */,
+				E5FEC6982E9D825900448FFE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = E5DB96862E969F8100577D73 /* Project object */;
+	rootObject = E5FEC6672E9D825800448FFE /* Project object */;
 }

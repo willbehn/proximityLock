@@ -13,6 +13,9 @@ struct BluetoothProxScanApp: App {
     
     @State private var isEditing = false
     
+    let minRSSI = -85.0
+    let maxRSSI = -35.0
+    
     
     var body: some Scene {
         MenuBarExtra("BT Prox",
@@ -45,52 +48,64 @@ struct BluetoothProxScanApp: App {
                 
                 RSSIChart(scanner: scanner)
 
-                HStack {
-                    Text("Lock Threshold")
-                        .font(.subheadline.weight(.semibold))
-                        .foregroundStyle(.primary)
-                    
-                    Spacer()
-                    
-                    Text("\(scanner.threshold, specifier: "%.1f") dB")
-                        .font(.system(.subheadline, design: .rounded))
-                    
+
+                VStack(alignment: .leading, spacing: 10) {
+                    Text("Lock when RSSI is below \(Int(scanner.threshold)) dBm")
+                        .font(.subheadline)
                         .foregroundStyle(.secondary)
-                }
-                
-                Text("(Higher value is less sensitive)")
-                    .font(.caption)
-                    .foregroundStyle(.secondary)
-                    
-                
-                Slider(
-                    value: $scanner.threshold,
-                    in: -85 ... -35,
-                    onEditingChanged: { editing in
-                        isEditing = editing
-                        
-                        if !editing{
-                            scanner.updateThreshold()
+
+                    HStack {
+                        VStack(alignment: .leading, spacing: 2) {
+                            Text("Less sensitive").font(.caption)
+                            Text("−85 dBm").font(.caption2).foregroundStyle(.secondary)
+                        }
+                        Spacer()
+                        VStack(alignment: .trailing, spacing: 2) {
+                            Text("More sensitive").font(.caption)
+                            Text("−35 dBm").font(.caption2).foregroundStyle(.secondary)
                         }
                     }
-                )
-                
-                HStack {
-                    Text("-85 dB")
-                        .font(.system(.subheadline, design: .rounded))
-                        .foregroundStyle(.secondary)
-                    
-                    Spacer()
-                    
-                    Text("-55 dB")
-                        .font(.system(.subheadline, design: .rounded))
-                        .foregroundStyle(.secondary)
+
+                    Slider(
+                        value: $scanner.threshold,
+                        in: minRSSI ... maxRSSI,
+                        onEditingChanged: { editing in
+                            isEditing = editing
+                            
+                            if !editing{
+                                scanner.updateThreshold()
+                            }
+                        }
+                    )
                 }
+
+                
+                
                 
                 Divider()
                 
-                Button("Quit") { NSApplication.shared.terminate(nil) }
-                    .buttonStyle(.bordered)
+                
+                VStack(alignment: .leading, spacing: 4) {
+                    Text("Devices")
+                        .font(.subheadline.weight(.semibold))
+                        .foregroundStyle(.primary)
+                    
+                    DevicePickerView()
+                }
+                
+                
+                
+                Divider()
+                
+                Button(action: { NSApp.terminate(nil) }) {
+                            HStack {
+                                Text("Quit Proximity Lock")
+                                Spacer()
+                                Text("⌘Q").foregroundStyle(.secondary)
+                            }
+                            .padding(.vertical, 6)
+                        }
+                        .buttonStyle(.plain)
             }
             .padding(12)
             .frame(width: 300)
