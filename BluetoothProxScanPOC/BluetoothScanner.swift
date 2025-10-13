@@ -71,7 +71,7 @@ struct RSSIWindow {
 
 class BluetoothScanner: NSObject, CBCentralManagerDelegate {
     private var manager: CBCentralManager!
-    private var startTime: Double = Date().timeIntervalSince1970
+    private var startTime: Double? = nil
     private var stopAdTrigger: Bool = false
     
     private var unlockTime: Double? = nil
@@ -102,6 +102,7 @@ class BluetoothScanner: NSObject, CBCentralManagerDelegate {
         window = RSSIWindow(maxCount: windowMaxCount)
         super.init()
         manager = CBCentralManager(delegate: self, queue: DispatchQueue(label: "bt.queue"))
+
         
         
         lockCenter.addObserver(
@@ -149,6 +150,8 @@ class BluetoothScanner: NSObject, CBCentralManagerDelegate {
         
         guard !isLocked else { return }
         
+        if startTime == nil {startTime = Date().timeIntervalSince1970}
+        
         let now = Date().timeIntervalSince1970
 
         if let lt = self.unlockTime, now - lt <= 60 { return }
@@ -170,11 +173,9 @@ class BluetoothScanner: NSObject, CBCentralManagerDelegate {
                 
                 print ("smoothed=\(smoothed) VS normal=\(RSSI.doubleValue)")
                 
-                guard !(window.count < self.windowMaxCount )else { return }
-
-                let now = Date().timeIntervalSince1970
-
-                if smoothed < threshold, now - startTime > 5 {
+                guard (Date().timeIntervalSince1970 - (startTime ?? 0.0)) > 25 else { return }
+        
+                if smoothed < threshold{
                     print("LOCKING at \(Date()) rssi=\(smoothed)")
                     
                     startScreenSaver()
