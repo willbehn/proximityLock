@@ -39,6 +39,9 @@ final class ScannerService: ObservableObject {
     @Published var isOn = false
     @Published var threshold: Double
     @Published var lastObservations: [Double]
+    @Published var devices: Set<DeviceItem>
+    @Published var selectedDevice: DeviceItem?
+    
     private var samples: RSSIWindow
     
     private var scanner: BluetoothScanner = BluetoothScanner()
@@ -52,6 +55,7 @@ final class ScannerService: ObservableObject {
         self.threshold = scanner.threshold
         self.samples = RSSIWindow(maxCount: sampleCount)
         self.lastObservations = []
+        self.devices = scanner.devices
     }
     
     func start() {
@@ -88,5 +92,13 @@ final class ScannerService: ObservableObject {
         scanner.updateThreshold(newThreshold: self.threshold)
         
         self.threshold = scanner.threshold
+    }
+    
+    func updateDevices() {
+        self.devices = scanner.devices
+    }
+    
+    func selectDevice(_ device: DeviceItem) {
+        self.selectedDevice = device
     }
 }

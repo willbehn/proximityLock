@@ -9,7 +9,7 @@
 import SwiftUI
 import Charts
 
-struct RSSIChart: View {
+struct RSSIChartView: View {
     @ObservedObject var scanner: ScannerService
 
     var body: some View {

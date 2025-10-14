@@ -12,6 +12,11 @@ import Cocoa
 import Foundation
 import Combine
 
+struct DeviceItem: Hashable, Identifiable {
+    let id: String
+    let name: String
+}
+
 
 struct KalmanFilterRSSI {
     private(set) var x: Double   // estimated RSSI
@@ -62,6 +67,7 @@ class BluetoothScanner: NSObject, CBCentralManagerDelegate {
     let appleLE1: UInt8 = 0x00
 
     private(set) var threshold: Double = -65
+    private(set) var devices: Set<DeviceItem> = []
     
     let rssiPublisher = PassthroughSubject<Double, Never>()
 
@@ -135,6 +141,11 @@ class BluetoothScanner: NSObject, CBCentralManagerDelegate {
             
             let name = (advertisementData[CBAdvertisementDataLocalNameKey] as? String)
             ?? peripheral.name ?? "Unknown"
+            
+            
+            if let name = peripheral.name {
+                devices.insert(DeviceItem(id: peripheral.identifier.uuidString, name: name))
+            }
             
             
             if name.lowercased().contains("william sin iphone"){

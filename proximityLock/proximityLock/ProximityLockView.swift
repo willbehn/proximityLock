@@ -15,10 +15,6 @@ struct ProximityLockView: View {
     let maxRSSI = -35.0
     
     var body: some View {
-        
-        
-        
-        
         VStack(alignment: .leading, spacing: 12) {
             
             HStack(spacing: 8) {
@@ -45,7 +41,7 @@ struct ProximityLockView: View {
                 }
             }
             
-            RSSIChart(scanner: scanner)
+            RSSIChartView(scanner: scanner)
             
             
             VStack(alignment: .leading, spacing: 10) {
@@ -84,15 +80,26 @@ struct ProximityLockView: View {
             Divider()
             
             
+            
             VStack(alignment: .leading, spacing: 4) {
-                Text("Devices")
-                    .font(.subheadline.weight(.semibold))
-                    .foregroundStyle(.primary)
+                HStack {
+                    Text("Devices")
+                        .font(.subheadline.weight(.semibold))
+                        .foregroundStyle(.primary)
+                    
+                    Spacer()
+                    
+                    Button(action: {
+                        scanner.updateDevices()
+                    }) {
+                        Label("Rescan", systemImage: "arrow.clockwise")
+                    }
+                    .buttonStyle(.bordered)
+                    .controlSize(.small)
+                }
                 
-                DevicePickerView()
+                DevicePickerView(scanner: scanner)
             }
-            
-            
             
             Divider()
             
@@ -109,6 +116,4 @@ struct ProximityLockView: View {
         .padding(12)
         .frame(width: 300)
     }
-    
-    
 }
