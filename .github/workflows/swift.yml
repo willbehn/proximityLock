@@ -14,7 +14,7 @@ jobs:
       - name: Build (Xcode project)
         run: |
           xcodebuild \
-            -project  proximityLock/proximityLock.xcworkspace \
+            -project  proximityLock/proximityLock.xcodeproj \
             -scheme proximityLock \
             -configuration Debug \
             -sdk macosx \
