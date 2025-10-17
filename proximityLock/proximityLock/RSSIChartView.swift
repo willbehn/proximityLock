@@ -15,8 +15,7 @@ struct RSSIChartView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 4) {
             Text("Bluetooth RSSI (last \(scanner.lastObservations.count) samples)")
-                .font(.caption)
-                .foregroundStyle(.secondary)
+                .font(.subheadline.weight(.semibold))
             
             Chart {
                 ForEach(Array(scanner.lastObservations.enumerated()), id: \.offset) { idx, rssi in
@@ -34,13 +33,15 @@ struct RSSIChartView: View {
                             .font(.caption2)
                             .foregroundStyle(.primary)
                     }
+                
             }
+            
             .chartYScale(domain: -85 ... -35)
             .chartXAxis(.hidden)
             .frame(height: 100)
             .padding(8)
-            .background(.secondary.opacity(0.1))
-            .clipShape(RoundedRectangle(cornerRadius: 9))
+            Text("th: Current threshold for RSSI detection").font(.caption2).foregroundStyle(.secondary)
         }
     }
 }
+

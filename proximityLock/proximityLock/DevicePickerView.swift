@@ -20,13 +20,29 @@ struct DevicePickerView: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
+                HStack {
+                    Text("Devices")
+                        .font(.subheadline.weight(.semibold))
+                        .foregroundStyle(.primary)
+                    
+                    Spacer()
+                    
+                    Button(action: {
+                        scanner.updateDevices()
+                    }) {
+                        Label("Rescan", systemImage: "arrow.clockwise")
+                    }
+                    .buttonStyle(.bordered)
+                    .controlSize(.small)
+                }
+            
             Text("Choose Device")
                 .font(.caption)
                 .foregroundStyle(.secondary)
                 .frame(maxWidth: .infinity, alignment: .leading)
 
             ScrollView {
-                LazyVStack(spacing: 6) {
+                LazyVStack(spacing: 8) {
                     ForEach(sortedDevices) { device in
                         let isSelected = (selectedID == device.id)
 
