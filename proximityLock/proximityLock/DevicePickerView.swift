@@ -31,7 +31,6 @@ struct DevicePickerView: View {
                         let isSelected = (selectedID == device.id)
 
                         Button {
-                            //TODO fiks logikk for hvilke device som er valgt
                             selectedID = device.id
                             scanner.selectDevice(device)
                         } label: {

@@ -68,6 +68,7 @@ class BluetoothScanner: NSObject, CBCentralManagerDelegate {
 
     private(set) var threshold: Double = -65
     private(set) var devices: Set<DeviceItem> = []
+    private(set) var selectedDevice: DeviceItem? = nil
     
     let rssiPublisher = PassthroughSubject<Double, Never>()
 
@@ -148,7 +149,9 @@ class BluetoothScanner: NSObject, CBCentralManagerDelegate {
             }
             
             
-            if name.lowercased().contains("william sin iphone"){
+            let selectedDeviceName = selectedDevice?.name ?? "no device"
+            
+            if name.lowercased().contains(selectedDeviceName.lowercased()){
                 //print("[][APPLE] RSSI=\(rssi) dBm m name=\(name)")
                 //print("id=\(peripheral.identifier.uuidString)")
                 
@@ -182,6 +185,10 @@ class BluetoothScanner: NSObject, CBCentralManagerDelegate {
     
     func updateThreshold(newThreshold: Double) {
         self.threshold = newThreshold
+    }
+    
+    func updateSelectedDevice(newDevice: DeviceItem) {
+        self.selectedDevice = newDevice
     }
 }
 

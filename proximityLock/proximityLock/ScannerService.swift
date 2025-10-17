@@ -99,6 +99,8 @@ final class ScannerService: ObservableObject {
     }
     
     func selectDevice(_ device: DeviceItem) {
+        print("Bytter device til \(device.name)")
         self.selectedDevice = device
+        scanner.updateSelectedDevice(newDevice: device)
     }
 }
