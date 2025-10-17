@@ -17,39 +17,6 @@ struct DeviceItem: Hashable, Identifiable {
     let name: String
 }
 
-
-struct KalmanFilterRSSI {
-    private(set) var x: Double   // estimated RSSI
-    private(set) var P: Double   // uncertainty
-    private let Q: Double        // how much rssi should change
-    private let R: Double        // noise
-    
-    init(initialRSSI: Double,
-         processNoise: Double = 0.5,
-         measurementNoise: Double = 4.0) {
-        self.x = initialRSSI
-        self.P = 10.0
-        self.Q = processNoise
-        self.R = measurementNoise
-    }
-    
-    mutating func update(measuredRSSI z: Double) -> Double {
-        // 1. Predict
-        P = P + Q
-        
-        // 2. Compute Kalman gain
-        let K = P / (P + R)
-        
-        // 3. Update estimate
-        x = x + K * (z - x)
-        
-        // 4. Update uncertainty
-        P = (1 - K) * P
-        
-        return x
-    }
-}
-
 class BluetoothScanner: NSObject, CBCentralManagerDelegate {
     private var manager: CBCentralManager!
     private var startTime: Double? = nil
@@ -151,7 +118,7 @@ class BluetoothScanner: NSObject, CBCentralManagerDelegate {
                     //print("[][APPLE] RSSI=\(rssi) dBm m name=\(name)")
                     //print("id=\(peripheral.identifier.uuidString)")
                     
-                    let smoothed = filter.update(measuredRSSI: RSSI.doubleValue)
+                    let smoothed = filter.update(measuredRSSI: RSSI.doubleValue, time: Date().timeIntervalSince1970)
                     
                     rssiPublisher.send(smoothed)
                     
