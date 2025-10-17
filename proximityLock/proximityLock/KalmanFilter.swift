@@ -49,6 +49,7 @@ struct KalmanFilterRSSI {
     }
 
     private mutating func timeDelta(from t: TimeInterval) -> Double {
+        defer {lastTime = t} 
         guard let last = lastTime else { return 0 }
         return max(0, t - last)
     }
